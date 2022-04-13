@@ -13,7 +13,7 @@
             <ul class="products-list">
 
 
-                <ng-container *ngFor="let product of checkout.allProducts">
+                <ng-container *ngFor="let product of checkout.allProducts; trackBy:trackBy ">
 
                     <li class="product row">
 
@@ -31,21 +31,21 @@
 
                         <div class="col-quantity">
 
-                            <button class="count">-</button>
+                            <button (click)="checkout.removeProduct(product.code)" class="count">-</button>
 
                             <input type="text" class="product-quantity" [value]="checkout.getProductCount(product.code)" />
 
-                            <button class="count">+</button>
+                            <button (click)="checkout.addProduct(product.code)" class="count">+</button>
 
                         </div>
 
 
                         <div class="col-price">
-                            <span class="product-price">5</span><span class="product-currency currency">€</span>
+                            <span class="product-price"> {{checkout.getProductPrice(product.code)}} </span><span class="product-currency currency">€</span>
                         </div>
 
                         <div class="col-total">
-                            <span class="product-price">20</span><span class="product-currency currency">€</span>
+                            <span class="product-price">{{checkout.getTotalProductPrice(product.code)}} </span><span class="product-currency currency">€</span>
                         </div>
 
                     </li>
@@ -57,6 +57,7 @@
 
 
 
-        <app-summary></app-summary>
+        <app-summary [totalItems]="checkout.myCart.length" [totalPrice]="checkout.total()" [totalPriceWithPutDiscount]="checkout.getTotalWithOutDiscount()"></app-summary>
+
     </main>
 </div>

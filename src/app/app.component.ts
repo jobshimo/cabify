@@ -21,4 +21,5 @@ export class AppComponent implements OnInit {
     this.checkout.allProducts = this.ps.products
   }
 
+   trackBy = (index: number, item: any) => item;
 }
